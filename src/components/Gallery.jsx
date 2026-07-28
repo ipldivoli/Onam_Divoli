@@ -10,7 +10,7 @@ function GalleryTile({ image, index, onOpen }) {
       aria-label={`View image: ${image.alt}`}
     >
       {!broken ? (
-        <img
+       <img
           src={image.src}
           alt={image.alt}
           loading="lazy"
@@ -31,21 +31,32 @@ function GalleryTile({ image, index, onOpen }) {
 }
 
 export default function Gallery() {
+  // const [images, setImages] = useState([]);
+  // const [status, setStatus] = useState("loading"); // loading | ready | error
   const [images, setImages] = useState([]);
-  const [status, setStatus] = useState("loading"); // loading | ready | error
+  const [status, setStatus] = useState("loading");
   const [openIndex, setOpenIndex] = useState(null);
 
   useEffect(() => {
-    fetch("/api/gallery")
-      .then((res) => {
-        if (!res.ok) throw new Error("Request failed");
-        return res.json();
-      })
-      .then((data) => {
+    async function loadGallery() {
+      try {
+        const res = await fetch("/api/gallery");
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch gallery");
+        }
+
+        const data = await res.json();
+
         setImages(data.images || []);
         setStatus("ready");
-      })
-      .catch(() => setStatus("error"));
+      } catch (err) {
+        console.error(err);
+        setStatus("error");
+      }
+    }
+
+    loadGallery();
   }, []);
 
   const close = () => setOpenIndex(null);
