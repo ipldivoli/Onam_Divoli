@@ -109,11 +109,18 @@ export default function Gallery() {
         .gallery-header .divider{ margin:22px auto 0; }
 
         .gallery-grid{
-          display:grid;
-          grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-          gap:6px;
-          max-width:1280px;
-          margin:0 auto;
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:18px;
+            width:100%;
+            max-width:1400px;
+        }
+
+        .gallery-tile{
+            width:100%;
+            aspect-ratio:1/1;
+            overflow:hidden;
+            border-radius:14px;
         }
 
         .gallery-tile{
