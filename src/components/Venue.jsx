@@ -9,22 +9,21 @@ export default function Venue() {
     <section id="venue" className="venue-section">
       <style>{`
         .venue-section{
-          padding:80px 56px 100px;
+                    padding:0px 56px 0px;
           background:linear-gradient(180deg, #0f2218 0%, #0b1710 100%);
-          position:relative;
-          scroll-margin-top:92px;
-          height:100vh;
+          min-height:100vh;
           display:flex;
+          justify-content:flex-start;
           flex-direction:column;
           align-items:center;
-          justify-content:center;
+          scroll-margin-top:-75px;        
           box-sizing:border-box;
           overflow:auto;
         }
         .venue-header{
           text-align:center;
           max-width:760px;
-          margin:0 auto 42px;
+          margin-top:5%;
         }
         .venue-header .eyebrow{ margin-bottom:14px; }
         .venue-header h2{

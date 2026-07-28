@@ -68,15 +68,14 @@ export default function Gallery() {
     <section id="gallery" className="gallery-section">
       <style>{`
         .gallery-section{
-          padding:80px 56px 100px;
-          background:var(--ink);
-          position:relative;
-          height:100vh;
+                    padding:0px 56px 0px;
+          background:linear-gradient(180deg, #0f2218 0%, #0b1710 100%);
+          min-height:100vh;
           display:flex;
+          justify-content:flex-start;
           flex-direction:column;
           align-items:center;
-          justify-content:center;
-          scroll-margin-top:92px;
+          scroll-margin-top:-75px;        
           box-sizing:border-box;
           overflow:auto;
         }
@@ -86,6 +85,7 @@ export default function Gallery() {
           max-width:760px;
           margin-left:auto;
           margin-right:auto;
+          margin-top:5%;
         }
         .gallery-header .eyebrow{ margin-bottom:14px; }
         .gallery-header h2{

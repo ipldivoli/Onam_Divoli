@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/blob": "^2.6.1",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "@vercel/blob": "^2.6.1"
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

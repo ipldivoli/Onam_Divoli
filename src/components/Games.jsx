@@ -11,18 +11,18 @@ export default function Games() {
     <section id="games" className="games-section">
       <style>{`
         .games-section{
-          padding:80px 56px 100px;
+          padding:0px 56px 0px;
           background:linear-gradient(180deg, #0f2218 0%, #0b1710 100%);
           min-height:100vh;
           display:flex;
+          justify-content:flex-start;
           flex-direction:column;
           align-items:center;
-          justify-content:flex-start;
-          scroll-margin-top:110px;
+          scroll-margin-top:-75px;        
           box-sizing:border-box;
           overflow:auto;
         }
-        .games-header{ text-align:center; max-width:760px; margin-bottom:28px; }
+        .games-header{ text-align:center; max-width:760px; margin-bottom:28px;margin-top:5%; }
         .games-header h2{
           font-family:'Cormorant Garamond', serif;
           font-size:clamp(2.2rem, 4.5vw, 3rem);

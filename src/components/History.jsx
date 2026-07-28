@@ -39,8 +39,8 @@ export default function History() {
           padding:80px 56px 100px;
           background:linear-gradient(180deg, #11231b 0%, #0e1a14 100%);
           position:relative;
-          scroll-margin-top:92px;
-          height:100vh;
+         scroll-margin-top:-75px;
+          height:auto;
           display:flex;
           flex-direction:column;
           align-items:center;
@@ -54,6 +54,7 @@ export default function History() {
           max-width:760px;
           margin-left:auto;
           margin-right:auto;
+          margin-top:5%;
         }
         .history-header .eyebrow{ margin-bottom:14px; }
         .history-header h2{

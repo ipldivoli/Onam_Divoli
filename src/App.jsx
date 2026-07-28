@@ -30,14 +30,7 @@ export default function App() {
         }
         *, *::before, *::after{ box-sizing:border-box; }
         /* Ensure anchor targets offset beneath the fixed nav across browsers (exclude #home) */
-        section[id]:not(#home)::before{
-          content:"";
-          display:block;
-          height:92px;
-          margin-top:-92px;
-          visibility:hidden;
-          pointer-events:none;
-        }
+section[id]:not(#home)::before{ content:""; display:block; height:92px; margin-top:-92px; visibility:hidden; pointer-events:none; }
         .divoli-root{ font-family:'Jost', sans-serif; color:var(--cream); }
 
         .frame{
@@ -46,7 +39,7 @@ export default function App() {
         }
         .frame::before, .frame::after{
           content:""; position:absolute; width:26px; height:26px;
-          border:1px solid var(--gold-soft);
+          //border:1px solid var(--gold-soft);
         }
         .frame::before{ top:-9px; left:-9px; border-right:none; border-bottom:none; }
         .frame::after{ bottom:-9px; right:-9px; border-left:none; border-top:none; }
