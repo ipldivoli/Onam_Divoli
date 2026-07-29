@@ -65,11 +65,13 @@ export default function GameDetails() {
         }
 
         .container{
-    width:100%;
-    max-width:1400px;
-    margin:0;
-    padding-left:40px;
-    padding-right:40px;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 30px;
+}
+
+.content{
+    margin-top:30px;
 }
 
         .back-btn{
@@ -174,6 +176,8 @@ export default function GameDetails() {
           ← Back
         </button>
 
+        <div className="content">
+
         <h1>{game.name}</h1>
 
         <div className="grid">
@@ -182,12 +186,58 @@ export default function GameDetails() {
             <div className="card">
               <h2>👥 Participants</h2>
 
-              {participants.map((p) => (
-                <div key={p.id} className="participant">
-                  {p.name}
+              {game.event_type === "individual" ? (
+
+  participants.map((p) => (
+
+    <div key={p.id} className="participant">
+
+      <strong>{p.name}</strong>
+
+      <br />
+
+      <span>{p.team}</span>
+
+    </div>
+
+  ))
+
+) : (
+
+  Object.entries(
+    participants.reduce((acc, p) => {
+
+      if (!acc[p.team]) acc[p.team] = [];
+
+      acc[p.team].push(p);
+
+      return acc;
+
+    }, {})
+  ).map(([team, members]) => (
+
+    <div key={team} className="participant">
+
+      <h3>{team}</h3>
+
+      {members.map((m) => (
+
+        <div key={m.id}>
+
+          • {m.name}
+
+        </div>
+
+      ))}
+
+    </div>
+
+  ))
+
+)}
                 </div>
-              ))}
-            </div>
+              
+            
           )}
 
           {matches.length > 0 && (
@@ -200,23 +250,82 @@ export default function GameDetails() {
 
                   <br /><br />
 
-                  {m.player1} <b>VS</b> {m.player2}
+                  {game.event_type === "individual" ? (
 
-                  <br /><br />
+  <>
 
-                   Winner : <b>{m.winner}</b>
+    <strong>{m.player1}</strong>
+
+    {m.player1_team && (
+      <>
+        <br />
+        <small>{m.player1_team}</small>
+      </>
+    )}
+
+    <br /><br />
+
+    <b>VS</b>
+
+    <br /><br />
+
+    <strong>{m.player2}</strong>
+
+    {m.player2_team && (
+      <>
+        <br />
+        <small>{m.player2_team}</small>
+      </>
+    )}
+
+  </>
+
+) : (
+
+  <>
+
+    <strong>{m.team1}</strong>
+
+    <br /><br />
+
+    <b>VS</b>
+
+    <br /><br />
+
+    <strong>{m.team2}</strong>
+
+  </>
+
+)}
+
+<br /><br />
+
+Winner : <b>{m.winner}</b>
                 </div>
               ))}
             </div>
           )}
 
         </div>
-
+        </div>
         {game.winner && (
           <div className="winner">
             <h2> Champion</h2>
 
             <h3>{game.winner}</h3>
+
+{game.event_type === "individual" && (
+
+  <p
+    style={{
+      marginTop:10,
+      color:"#d7c8a1"
+    }}
+  >
+    Team : {participants.find(p => p.name === game.winner)?.team}
+  </p>
+
+)}
           </div>
         )}
 
