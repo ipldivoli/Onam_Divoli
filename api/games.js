@@ -2,15 +2,21 @@ import { sql } from "@vercel/postgres";
 
 export default async function handler(req, res) {
   try {
-    const { rows } = await sql`
-      SELECT id, name
-      FROM games
-      ORDER BY id;
+    const db = await sql`SELECT current_database();`;
+
+    const schema = await sql`
+      SELECT table_schema, table_name
+      FROM information_schema.tables
+      WHERE table_name='games';
     `;
 
-    res.status(200).json(rows);
+    return res.status(200).json({
+      database: db.rows,
+      tables: schema.rows,
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch games" });
+    return res.status(500).json({
+      error: err.message,
+    });
   }
 }
