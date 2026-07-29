@@ -1,154 +1,223 @@
-import { useEffect,useState } from "react";
-import { useNavigate,useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function GameDetails(){
+export default function GameDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    const {id}=useParams();
+  const [game, setGame] = useState(null);
+  const [participants, setParticipants] = useState([]);
+  const [matches, setMatches] = useState([]);
 
-    const navigate=useNavigate();
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch(`/api/game/${id}`);
+        const data = await res.json();
 
-    const [game,setGame]=useState(null);
+        setGame(data.game);
+        setParticipants(data.participants || []);
+        setMatches(data.matches || []);
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
-    const [participants,setParticipants]=useState([]);
+    load();
+  }, [id]);
 
-    const [matches,setMatches]=useState([]);
+  if (!game) {
+    return (
+      <div
+        style={{
+          background: "#0E1A14",
+          color: "#fff",
+          minHeight: "100vh",
+          display: "grid",
+          placeItems: "center",
+          fontSize: "22px",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
 
-    useEffect(()=>{
+  return (
+    <div className="game-page">
+      <style>{`
+        :root{
+          --cream:#F7F1E1;
+          --gold:#C9A227;
+          --green:#0E1A14;
+        }
 
-        async function load(){
+        *{
+          box-sizing:border-box;
+        }
 
-            const res=await fetch(`/api/game/${id}`);
+        .game-page{
+          min-height:100vh;
+          background:linear-gradient(180deg,#102319 0%,#09130d 100%);
+          padding:60px 20px;
+          color:var(--cream);
+          font-family:'Jost',sans-serif;
+        }
 
-            const data=await res.json();
+        .container{
+          max-width:1100px;
+          margin:auto;
+        }
 
-            setGame(data.game);
+        .back-btn{
+          background:transparent;
+          border:1px solid var(--gold);
+          color:var(--cream);
+          padding:12px 22px;
+          border-radius:10px;
+          cursor:pointer;
+          transition:.3s;
+          margin-bottom:40px;
+        }
 
-            setParticipants(data.participants);
+        .back-btn:hover{
+          background:var(--gold);
+          color:#000;
+        }
 
-            setMatches(data.matches);
+        h1{
+          font-family:'Cormorant Garamond',serif;
+          font-size:56px;
+          margin-bottom:40px;
+          color:var(--cream);
+        }
+
+        .grid{
+          display:grid;
+          grid-template-columns:1fr 1fr;
+          gap:30px;
+        }
+
+        .card{
+          background:rgba(255,255,255,.04);
+          border:1px solid rgba(201,162,39,.3);
+          border-radius:18px;
+          padding:25px;
+          backdrop-filter:blur(8px);
+        }
+
+        .card h2{
+          margin-top:0;
+          margin-bottom:20px;
+          color:var(--gold);
+          font-family:'Cormorant Garamond',serif;
+        }
+
+        .participant{
+          padding:12px;
+          margin-bottom:10px;
+          border-radius:10px;
+          background:rgba(255,255,255,.05);
+        }
+
+        .match{
+          margin-bottom:20px;
+          padding:15px;
+          border-radius:12px;
+          background:rgba(255,255,255,.05);
+        }
+
+        .winner{
+          margin-top:35px;
+          text-align:center;
+          padding:30px;
+          border-radius:18px;
+          background:rgba(201,162,39,.12);
+          border:2px solid var(--gold);
+        }
+
+        .winner h2{
+          margin-bottom:10px;
+          color:var(--gold);
+        }
+
+        .winner h3{
+          margin:0;
+          font-size:32px;
+          font-family:'Cormorant Garamond',serif;
+        }
+
+        @media(max-width:900px){
+
+          .grid{
+            grid-template-columns:1fr;
+          }
+
+          h1{
+            font-size:42px;
+          }
 
         }
 
-        load();
+      `}</style>
 
-    },[id]);
+      <div className="container">
 
-    if(!game){
+        <button
+          className="back-btn"
+          onClick={() => navigate("/")}
+        >
+          ← Back
+        </button>
 
-        return <h2>Loading...</h2>
+        <h1>{game.name}</h1>
 
-    }
+        <div className="grid">
 
-    return(
+          {participants.length > 0 && (
+            <div className="card">
+              <h2>👥 Participants</h2>
 
-        <div style={{padding:"60px"}}>
+              {participants.map((p) => (
+                <div key={p.id} className="participant">
+                  {p.name}
+                </div>
+              ))}
+            </div>
+          )}
 
-            <button onClick={()=>navigate("/")}>
+          {matches.length > 0 && (
+            <div className="card">
+              <h2>⚔️ Matches</h2>
 
-                ← Back
+              {matches.map((m) => (
+                <div key={m.id} className="match">
+                  <strong>{m.round}</strong>
 
-            </button>
+                  <br /><br />
 
-            <h1>
+                  {m.player1} <b>VS</b> {m.player2}
 
-                {game.name}
+                  <br /><br />
 
-            </h1>
-
-            {participants.length>0 && (
-
-                <>
-
-                <h2>Participants</h2>
-
-                {
-
-                    participants.map(p=>
-
-                        <div key={p.id}>
-
-                            {p.name}
-
-                        </div>
-
-                    )
-
-                }
-
-                </>
-
-            )}
-
-            {matches.length>0 && (
-
-                <>
-
-                <h2>
-
-                    Matches
-
-                </h2>
-
-                {
-
-                    matches.map(match=>
-
-                        <div key={match.id}>
-
-                            <b>
-
-                                {match.round}
-
-                            </b>
-
-                            <br/>
-
-                            {match.player1}
-
-                            {" vs "}
-
-                            {match.player2}
-
-                            <br/>
-
-                            Winner :
-
-                            {match.winner}
-
-                            <hr/>
-
-                        </div>
-
-                    )
-
-                }
-
-                </>
-
-            )}
-
-            {game.winner && (
-
-                <>
-
-                <h2>
-
-                     Winner
-
-                </h2>
-
-                <h3>
-
-                    {game.winner}
-
-                </h3>
-
-                </>
-
-            )}
+                   Winner : <b>{m.winner}</b>
+                </div>
+              ))}
+            </div>
+          )}
 
         </div>
 
-    );
+        {game.winner && (
+          <div className="winner">
+            <h2> Champion</h2>
 
+            <h3>{game.winner}</h3>
+          </div>
+        )}
+
+      </div>
+
+    </div>
+  );
 }
