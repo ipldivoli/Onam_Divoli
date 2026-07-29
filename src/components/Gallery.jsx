@@ -37,6 +37,17 @@ export default function Gallery() {
   const [status, setStatus] = useState("loading");
   const [openIndex, setOpenIndex] = useState(null);
 
+  const [startIndex, setStartIndex] = useState(0);
+
+  const visibleCount = 4;
+
+  const visibleImages =
+    images.length > 0
+      ? Array.from({ length: Math.min(visibleCount, images.length) }, (_, i) =>
+          images[(startIndex + i) % images.length]
+        )
+      : [];
+
   useEffect(() => {
     async function loadGallery() {
       try {
@@ -63,6 +74,18 @@ export default function Gallery() {
   const showPrev = () =>
     setOpenIndex((i) => (i - 1 + images.length) % images.length);
   const showNext = () => setOpenIndex((i) => (i + 1) % images.length);
+
+  const prevImages = () => {
+    setStartIndex((prev) =>
+      (prev - 1 + images.length) % images.length
+    );
+  };
+
+  const nextImages = () => {
+    setStartIndex((prev) =>
+      (prev + 1) % images.length
+    );
+  };
 
   useEffect(() => {
     if (openIndex === null) return;
@@ -108,13 +131,50 @@ export default function Gallery() {
         }
         .gallery-header .divider{ margin:22px auto 0; }
 
-        .gallery-grid{
-            display:grid;
-            grid-template-columns:repeat(4,1fr);
-            gap:18px;
-            width:100%;
-            max-width:1400px;
-        }
+        .gallery-carousel{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    width:100%;
+    max-width:1500px;
+}
+
+.gallery-grid{
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.gallery-arrow{
+    width:48px;
+    height:48px;
+
+    border-radius:50%;
+
+    border:1px solid var(--gold);
+
+    background:transparent;
+
+    color:var(--cream);
+
+    font-size:26px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    flex-shrink:0;
+}
+
+.gallery-arrow:hover{
+
+    background:var(--gold);
+
+    color:#0E1A14;
+
+}
 
         .gallery-tile{
             width:100%;
@@ -187,70 +247,126 @@ export default function Gallery() {
         }
 
         /* ---------- Lightbox ---------- */
+        /* ---------- Lightbox ---------- */
+
         .lightbox{
           position:fixed;
           inset:0;
-          z-index:100;
-          background:rgba(8,15,11,0.94);
+          z-index:1000;
+          background:rgba(8,15,11,.92);
           display:flex;
-          align-items:center;
           justify-content:center;
-          padding:40px;
+          align-items:center;
         }
+
         .lightbox-frame{
           position:relative;
-          max-width:min(1000px, 90vw);
-          max-height:82vh;
-          border:1px solid var(--gold);
-          padding:10px;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          border:none;
+          padding:0;
+          background:transparent;
+          box-shadow:none;
         }
+
         .lightbox-frame img{
           display:block;
-          max-width:100%;
-          max-height:76vh;
+          width:900px;
+          height:650px;
+          max-width:90vw;
+          max-height:85vh;
           object-fit:contain;
+          border:none;
+          border-radius:8px;
+          box-shadow:none;
         }
+
         .lightbox-caption{
-          text-align:center;
-          margin-top:14px;
-          font-family:'Cormorant Garamond', serif;
-          font-style:italic;
-          color:var(--cream);
-          font-size:1.05rem;
-        }
-        .lightbox-close,
-        .lightbox-nav{
           position:absolute;
-          background:none;
-          border:1px solid var(--gold-soft);
+          bottom:-35px;
+          left:50%;
+          transform:translateX(-50%);
+          margin:0;
           color:var(--cream);
+          font-family:'Cormorant Garamond',serif;
+          font-style:italic;
+        }
+
+        .lightbox-close{
+          position:absolute;
+          top:-50px;
+          right:0;
+          width:36px;
+          height:36px;
+          border:none;
+          background:transparent;
+          color:white;
+          font-size:24px;
+          cursor:pointer;
+        }
+
+        .lightbox-nav{
+          position:fixed;
+          top:50%;
+          transform:translateY(-50%);
+          width:50px;
+          height:50px;
+          border:1px solid var(--gold-soft);
+          border-radius:50%;
+          background:rgba(0,0,0,.25);
+          color:white;
+          font-size:28px;
           cursor:pointer;
           display:flex;
           align-items:center;
           justify-content:center;
         }
-        .lightbox-close{
-          top:-46px;
-          right:0;
-          width:34px; height:34px;
-          font-size:1rem;
-        }
-        .lightbox-nav{
-          top:50%;
-          transform:translateY(-50%);
-          width:42px; height:42px;
-          font-size:1.2rem;
-          border-radius:50%;
-        }
-        .lightbox-nav.prev{ left:-56px; }
-        .lightbox-nav.next{ right:-56px; }
 
-        @media (max-width:760px){
-          .gallery-section{ padding:90px 20px 100px; }
-          .lightbox{ padding:20px; }
-          .lightbox-nav.prev{ left:0; top:auto; bottom:-56px; transform:none; }
-          .lightbox-nav.next{ right:0; top:auto; bottom:-56px; transform:none; }
-          .lightbox-close{ top:-42px; }
+        .lightbox-nav.prev{
+          left:40px;
+        }
+
+        .lightbox-nav.next{
+          right:40px;
+        }
+
+        .lightbox-nav:hover,
+        .lightbox-close:hover{
+          color:var(--gold-soft);
+        }
+
+       @media(max-width:1024px){
+
+.gallery-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:640px){
+
+.gallery-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+          .lightbox-nav.prev{
+            left:12px;
+          }
+
+          .lightbox-nav.next{
+            right:12px;
+          }
+
+          .lightbox-close{
+            top:-40px;
+          }
         }
 
         .gallery-status{
@@ -284,15 +400,37 @@ export default function Gallery() {
       )}
 
       {status === "ready" && images.length > 0 && (
-        <div className="gallery-grid">
-          {images.map((image, index) => (
-            <GalleryTile
-              key={image.src}
-              image={image}
-              index={index}
-              onOpen={setOpenIndex}
-            />
-          ))}
+        <div className="gallery-carousel">
+
+          <button
+            className="gallery-arrow left"
+            onClick={prevImages}
+          >
+            ❮
+          </button>
+
+          <div className="gallery-grid">
+
+            {visibleImages.map((image, i) => (
+
+              <GalleryTile
+                key={image.src}
+                image={image}
+                index={(startIndex + i) % images.length}
+                onOpen={setOpenIndex}
+              />
+
+            ))}
+
+          </div>
+
+          <button
+            className="gallery-arrow right"
+            onClick={nextImages}
+          >
+            ❯
+          </button>
+
         </div>
       )}
 
@@ -304,7 +442,10 @@ export default function Gallery() {
           aria-label={images[openIndex].alt}
           onClick={close}
         >
-          <div className="lightbox-frame" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="lightbox-frame"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button className="lightbox-close" onClick={close} aria-label="Close">
               ✕
             </button>
