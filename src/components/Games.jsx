@@ -142,7 +142,7 @@ export default function Games() {
               onClick={() => navigate(`/games/${game.id}`)}
             >
               <div className="game-name">
-                🏆 {game.name}
+                 {game.name}
               </div>
 
               <div className="arrow">

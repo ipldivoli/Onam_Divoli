@@ -1,46 +1,154 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect,useState } from "react";
+import { useNavigate,useParams } from "react-router-dom";
 
-export default function GameDetails() {
-  const navigate = useNavigate();
-  const { id } = useParams();
+export default function GameDetails(){
 
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0E1A14",
-        color: "#F7F1E1",
-        padding: "40px",
-      }}
-    >
-      <button
-        onClick={() => navigate("/")}
-        style={{
-          padding: "12px 20px",
-          border: "1px solid #C9A227",
-          background: "transparent",
-          color: "#C9A227",
-          borderRadius: "12px",
-          cursor: "pointer",
-          marginBottom: "30px",
-        }}
-      >
-        ← Back to Games
-      </button>
+    const {id}=useParams();
 
-      <h1>Game #{id}</h1>
+    const navigate=useNavigate();
 
-      <h2>Participants</h2>
+    const [game,setGame]=useState(null);
 
-      <p>Participants will come from the database.</p>
+    const [participants,setParticipants]=useState([]);
 
-      <h2>Matches</h2>
+    const [matches,setMatches]=useState([]);
 
-      <p>Matches will come from the database.</p>
+    useEffect(()=>{
 
-      <h2>🏆 Winner</h2>
+        async function load(){
 
-      <p>Winner will be displayed here.</p>
-    </div>
-  );
+            const res=await fetch(`/api/game/${id}`);
+
+            const data=await res.json();
+
+            setGame(data.game);
+
+            setParticipants(data.participants);
+
+            setMatches(data.matches);
+
+        }
+
+        load();
+
+    },[id]);
+
+    if(!game){
+
+        return <h2>Loading...</h2>
+
+    }
+
+    return(
+
+        <div style={{padding:"60px"}}>
+
+            <button onClick={()=>navigate("/")}>
+
+                ← Back
+
+            </button>
+
+            <h1>
+
+                {game.name}
+
+            </h1>
+
+            {participants.length>0 && (
+
+                <>
+
+                <h2>Participants</h2>
+
+                {
+
+                    participants.map(p=>
+
+                        <div key={p.id}>
+
+                            {p.name}
+
+                        </div>
+
+                    )
+
+                }
+
+                </>
+
+            )}
+
+            {matches.length>0 && (
+
+                <>
+
+                <h2>
+
+                    Matches
+
+                </h2>
+
+                {
+
+                    matches.map(match=>
+
+                        <div key={match.id}>
+
+                            <b>
+
+                                {match.round}
+
+                            </b>
+
+                            <br/>
+
+                            {match.player1}
+
+                            {" vs "}
+
+                            {match.player2}
+
+                            <br/>
+
+                            Winner :
+
+                            {match.winner}
+
+                            <hr/>
+
+                        </div>
+
+                    )
+
+                }
+
+                </>
+
+            )}
+
+            {game.winner && (
+
+                <>
+
+                <h2>
+
+                     Winner
+
+                </h2>
+
+                <h3>
+
+                    {game.winner}
+
+                </h3>
+
+                </>
+
+            )}
+
+        </div>
+
+    );
+
 }
