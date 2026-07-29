@@ -65,9 +65,12 @@ export default function GameDetails() {
         }
 
         .container{
-          max-width:1100px;
-          margin:auto;
-        }
+    width:100%;
+    max-width:1400px;
+    margin:0;
+    padding-left:40px;
+    padding-right:40px;
+}
 
         .back-btn{
           background:transparent;
@@ -86,17 +89,18 @@ export default function GameDetails() {
         }
 
         h1{
-          font-family:'Cormorant Garamond',serif;
-          font-size:56px;
-          margin-bottom:40px;
-          color:var(--cream);
-        }
+    font-family:'Cormorant Garamond',serif;
+    font-size:56px;
+    margin:20px 0 40px;
+    text-align:left;
+}
 
         .grid{
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          gap:30px;
-        }
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:30px;
+    align-items:start;
+}
 
         .card{
           background:rgba(255,255,255,.04);
@@ -129,7 +133,7 @@ export default function GameDetails() {
 
         .winner{
           margin-top:35px;
-          text-align:center;
+          text-align:left;
           padding:30px;
           border-radius:18px;
           background:rgba(201,162,39,.12);
@@ -165,7 +169,7 @@ export default function GameDetails() {
 
         <button
           className="back-btn"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/", { state: { scrollTo: "games" } })}
         >
           ← Back
         </button>
