@@ -102,17 +102,14 @@ export default function Gallery() {
     <section id="gallery" className="gallery-section">
       <style>{`
         .gallery-section{
-                    padding:0px 56px 0px;
-          background:linear-gradient(180deg, #0f2218 0%, #0b1710 100%);
-          min-height:100vh;
-          display:flex;
-          justify-content:flex-start;
-          flex-direction:column;
-          align-items:center;
-          scroll-margin-top:-75px;        
-          box-sizing:border-box;
-          overflow:auto;
-        }
+    padding:80px 56px;
+    background:linear-gradient(180deg,#0f2218 0%,#0b1710 100%);
+    min-height:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow:hidden;
+}
         .gallery-header{
           text-align:center;
           margin-bottom:40px;
@@ -145,6 +142,7 @@ export default function Gallery() {
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:18px;
+    overflow:hidden;
 }
 
 .gallery-arrow{
