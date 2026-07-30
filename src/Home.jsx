@@ -3,6 +3,7 @@ import Games from "./components/Games";
 import Gallery from "./components/Gallery";
 import History from "./components/History";
 import Venue from "./components/Venue";
+import TeamsPage from "./pages/Teams";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function Home() {
     { label: "Gallery", href: "#gallery" },
     { label: "History", href: "#history" },
     { label: "Venue", href: "#venue" },
+    { label: "Teams", href: "/teams" },
   ];
 
   return (

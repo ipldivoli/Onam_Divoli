@@ -65,9 +65,10 @@ export default function GameDetails() {
         }
 
         .container{
-    max-width:1200px;
-    margin:0 auto;
-    padding:0 30px;
+          max-width:1700px;
+          margin:0 auto;
+          padding:0 40px;
+        }
 }
 
 .content{
@@ -75,20 +76,27 @@ export default function GameDetails() {
 }
 
         .back-btn{
-          background:transparent;
-          border:1px solid var(--gold);
-          color:var(--cream);
-          padding:12px 22px;
-          border-radius:10px;
-          cursor:pointer;
-          transition:.3s;
-          margin-bottom:40px;
-        }
+  position:fixed;
+  top:30px;
+  left:30px;
 
-        .back-btn:hover{
-          background:var(--gold);
-          color:#000;
-        }
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--cream);
+
+  padding:12px 22px;
+  border-radius:10px;
+
+  cursor:pointer;
+  transition:.3s;
+
+  z-index:1000;
+}
+
+.back-btn:hover{
+  background:var(--gold);
+  color:#000;
+}
 
         h1{
     font-family:'Cormorant Garamond',serif;
@@ -104,13 +112,36 @@ export default function GameDetails() {
     align-items:start;
 }
 
-        .card{
-          background:rgba(255,255,255,.04);
-          border:1px solid rgba(201,162,39,.3);
-          border-radius:18px;
-          padding:25px;
-          backdrop-filter:blur(8px);
-        }
+        .matches-grid{
+    display:grid;
+    grid-template-columns:repeat(5, minmax(220px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+@media(max-width:1400px){
+    .matches-grid{
+        grid-template-columns:repeat(4, minmax(220px,1fr));
+    }
+}
+
+@media(max-width:1100px){
+    .matches-grid{
+        grid-template-columns:repeat(3, minmax(220px,1fr));
+    }
+}
+
+@media(max-width:800px){
+    .matches-grid{
+        grid-template-columns:repeat(2, minmax(220px,1fr));
+    }
+}
+
+@media(max-width:600px){
+    .matches-grid{
+        grid-template-columns:1fr;
+    }
+}
 
         .card h2{
           margin-top:0;
@@ -244,65 +275,63 @@ export default function GameDetails() {
             <div className="card">
               <h2>⚔️ Matches</h2>
 
-              {matches.map((m) => (
-                <div key={m.id} className="match">
-                  <strong>{m.round}</strong>
+              <div className="matches-grid">
 
-                  <br /><br />
+                {matches.map((m) => (
+                    <div key={m.id} className="match">
 
-                  {game.event_type === "individual" ? (
+                        <strong>{m.round}</strong>
 
-  <>
+                        <br /><br />
 
-    <strong>{m.player1}</strong>
+                        {game.event_type === "individual" ? (
+                            <>
+                                <strong>{m.player1}</strong>
 
-    {m.player1_team && (
-      <>
-        <br />
-        <small>{m.player1_team}</small>
-      </>
-    )}
+                                {m.player1_team && (
+                                    <>
+                                        <br />
+                                        <small>{m.player1_team}</small>
+                                    </>
+                                )}
 
-    <br /><br />
+                                <br /><br />
 
-    <b>VS</b>
+                                <b>VS</b>
 
-    <br /><br />
+                                <br /><br />
 
-    <strong>{m.player2}</strong>
+                                <strong>{m.player2}</strong>
 
-    {m.player2_team && (
-      <>
-        <br />
-        <small>{m.player2_team}</small>
-      </>
-    )}
+                                {m.player2_team && (
+                                    <>
+                                        <br />
+                                        <small>{m.player2_team}</small>
+                                    </>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <strong>{m.team1}</strong>
 
-  </>
+                                <br /><br />
 
-) : (
+                                <b>VS</b>
 
-  <>
+                                <br /><br />
 
-    <strong>{m.team1}</strong>
+                                <strong>{m.team2}</strong>
+                            </>
+                        )}
 
-    <br /><br />
+                        <br /><br />
 
-    <b>VS</b>
+                        Winner : <b>{m.winner}</b>
 
-    <br /><br />
+                    </div>
+                ))}
 
-    <strong>{m.team2}</strong>
-
-  </>
-
-)}
-
-<br /><br />
-
-Winner : <b>{m.winner}</b>
                 </div>
-              ))}
             </div>
           )}
 
