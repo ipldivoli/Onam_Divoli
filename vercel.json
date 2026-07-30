@@ -1,0 +1,20 @@
+{
+  "functions": {
+    "api/games.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "api/gallery.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "api/teams.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "api/game/[id].js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}

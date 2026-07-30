@@ -5,15 +5,20 @@ export default function Teams() {
   const navigate = useNavigate();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function loadTeams() {
       try {
         const res = await fetch("/api/teams");
+        if (!res.ok) {
+          throw new Error(`API returned ${res.status}`);
+        }
         const data = await res.json();
         setTeams(data.teams || []);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching teams from database:", err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -147,9 +152,11 @@ export default function Teams() {
         </p>
 
         {loading ? (
-          <p>Loading teams...</p>
+          <p>Loading teams from database...</p>
+        ) : error ? (
+          <p style={{ color: "#ff6b6b" }}>Error loading teams: {error}</p>
         ) : teams.length === 0 ? (
-          <p>No team data available yet.</p>
+          <p>No team data available in the database yet.</p>
         ) : (
           teams.map((teamGroup) => (
             <section key={teamGroup.team} className="team-card">
