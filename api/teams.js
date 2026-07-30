@@ -4,35 +4,39 @@ export default async function handler(req, res) {
   try {
     const { rows } = await sql`
       SELECT
-        p.id,
-        p.name,
-        p.team,
+        t.id,
+        t.name AS team_name,
+        p.id AS participant_id,
+        p.name AS participant_name,
         g.name AS game_name
-      FROM participants p
+      FROM teams t
+      LEFT JOIN participants p ON p.team_id = t.id
       LEFT JOIN games g ON g.id = p.game_id
-      ORDER BY p.team, p.name
+      ORDER BY t.name, p.name
     `;
 
-    const groupedTeams = rows.reduce((acc, participant) => {
-      const teamName = participant.team || "Unassigned";
+    const groupedTeams = rows.reduce((acc, row) => {
+      const teamName = row.team_name || "Unassigned";
 
       if (!acc[teamName]) {
-        acc[teamName] = [];
+        acc[teamName] = {
+          team: teamName,
+          members: [],
+        };
       }
 
-      acc[teamName].push({
-        id: participant.id,
-        name: participant.name,
-        game_name: participant.game_name,
-      });
+      if (row.participant_id) {
+        acc[teamName].members.push({
+          id: row.participant_id,
+          name: row.participant_name,
+          game_name: row.game_name,
+        });
+      }
 
       return acc;
     }, {});
 
-    const teams = Object.entries(groupedTeams).map(([team, members]) => ({
-      team,
-      members,
-    }));
+    const teams = Object.values(groupedTeams);
 
     res.status(200).json({ teams });
   } catch (err) {

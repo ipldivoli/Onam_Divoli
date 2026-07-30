@@ -51,32 +51,32 @@ export default function Teams() {
         }
 
         .back-btn{
-    position:fixed;
-    top:24px;
-    left:24px;
+            position:fixed;
+            top:24px;
+            left:24px;
 
-    display:flex;
-    align-items:center;
-    gap:8px;
+            display:flex;
+            align-items:center;
+            gap:8px;
 
-    padding:12px 22px;
+            padding:12px 22px;
 
-    background:rgba(14,26,20,.95);
-    color:var(--cream);
+            background:rgba(14,26,20,.95);
+            color:var(--cream);
 
-    border:1px solid var(--gold);
-    border-radius:10px;
+            border:1px solid var(--gold);
+            border-radius:10px;
 
-    cursor:pointer;
-    transition:.3s;
+            cursor:pointer;
+            transition:.3s;
 
-    z-index:1000;
-}
+            z-index:1000;
+        }
 
-.back-btn:hover{
-    background:var(--gold);
-    color:#000;
-}
+        .back-btn:hover{
+            background:var(--gold);
+            color:#000;
+        }
 
         .page-title {
           font-family: "Cormorant Garamond", serif;
