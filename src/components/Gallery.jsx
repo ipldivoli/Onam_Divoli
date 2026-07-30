@@ -146,9 +146,10 @@ export default function Gallery() {
     flex:1;
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:22px;
+    gap:24px;
 
-    max-width:1100px;
+    max-width:1480px;
+    width:100%;
     overflow:hidden;
 }
 
