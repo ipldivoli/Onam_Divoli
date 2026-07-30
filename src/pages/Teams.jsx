@@ -177,7 +177,7 @@ export default function Teams() {
 
         <h1 className="page-title">Teams</h1>
         <p className="page-subtitle">
-          The participating teams and their members are listed here, pulled from the database.
+          The participating teams and their members are listed here.
         </p>
 
         {loading ? (

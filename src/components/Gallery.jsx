@@ -139,20 +139,19 @@ export default function Gallery() {
     align-items:center;
     justify-content:center;
 
-    gap:18px;
+    gap:30px;
 }
 
 .gallery-grid{
     flex:1;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
 
-    gap:16px;
+    grid-template-columns:repeat(4, minmax(280px,1fr));
 
     width:100%;
-    max-width:1550px;
+    max-width:1700px;
 
-    overflow:hidden;
+    gap:28px;
 }
 
 .gallery-arrow{
@@ -189,15 +188,12 @@ export default function Gallery() {
     position:relative;
 
     width:100%;
-    height:460px;
+    height:360px;
 
     overflow:hidden;
-    border:none;
     border-radius:18px;
 
-    padding:0;
     cursor:pointer;
-    background:#132a20;
 }
 
         .gallery-tile{
