@@ -148,7 +148,7 @@ export default function Gallery() {
     grid-template-columns:repeat(4,1fr);
     gap:24px;
 
-    max-width:1480px;
+    max-width:2000px;
     width:100%;
     overflow:hidden;
 }
