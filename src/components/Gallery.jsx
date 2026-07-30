@@ -102,22 +102,25 @@ export default function Gallery() {
     <section id="gallery" className="gallery-section">
       <style>{`
         .gallery-section{
-    padding:80px 56px;
-    background:linear-gradient(180deg,#0f2218 0%,#0b1710 100%);
-    min-height:auto;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    overflow:hidden;
-}
-        .gallery-header{
-          text-align:center;
-          margin-bottom:40px;
-          max-width:760px;
-          margin-left:auto;
-          margin-right:auto;
-          margin-top:5%;
+            padding:0 56px;
+            background:linear-gradient(180deg,#0f2218 0%,#0b1710 100%);
+            min-height:100vh;
+
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-start;
+            align-items:center;
+
+            scroll-margin-top:-75px;
+            box-sizing:border-box;
+            overflow:hidden;
         }
+        .gallery-header{
+    text-align:center;
+    max-width:760px;
+    margin-top:5%;
+    margin-bottom:60px;
+}
         .gallery-header .eyebrow{ margin-bottom:14px; }
         .gallery-header h2{
           font-family:'Cormorant Garamond', serif;
@@ -129,19 +132,23 @@ export default function Gallery() {
         .gallery-header .divider{ margin:22px auto 0; }
 
         .gallery-carousel{
+    width:100%;
+    max-width:1400px;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:20px;
-    width:100%;
-    max-width:1500px;
+
+    gap:24px;
 }
 
 .gallery-grid{
     flex:1;
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:18px;
+    gap:22px;
+
+    max-width:1100px;
     overflow:hidden;
 }
 

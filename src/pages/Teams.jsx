@@ -91,13 +91,42 @@ export default function Teams() {
           line-height: 1.7;
         }
 
-        .team-card {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(201, 162, 39, 0.2);
-          padding: 22px;
-          border-radius: 16px;
-          margin-bottom: 18px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+        .teams-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:30px;
+        }
+
+        .team-card{
+            background:rgba(255,255,255,.05);
+            border:1px solid rgba(201,162,39,.25);
+            border-radius:18px;
+            padding:24px;
+        }
+
+        .team-title{
+            text-align:center;
+            color:var(--gold);
+            margin-bottom:20px;
+            font-size:28px;
+            font-family:"Cormorant Garamond", serif;
+        }
+
+        .member-item{
+            display:block;
+            padding:10px 0;
+            border-bottom:1px solid rgba(255,255,255,.08);
+        }
+
+        .member-name{
+            font-size:18px;
+            font-weight:500;
+        }
+
+        @media(max-width:900px){
+            .teams-grid{
+                grid-template-columns:1fr;
+            }
         }
 
         .team-title {
@@ -158,19 +187,38 @@ export default function Teams() {
         ) : teams.length === 0 ? (
           <p>No team data available in the database yet.</p>
         ) : (
-          teams.map((teamGroup) => (
-            <section key={teamGroup.team} className="team-card">
-              <h2 className="team-title">{teamGroup.team}</h2>
-              <div className="member-list">
-                {teamGroup.members.map((member) => (
-                  <div key={member.id} className="member-item">
-                    <span className="member-name">{member.name}</span>
-                    <span className="member-game">{member.game_name || "General participant"}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-          ))
+          <div className="teams-grid">
+
+            {teams.map((teamGroup) => (
+
+                <section
+                    key={teamGroup.team}
+                    className="team-card"
+                >
+
+                    <h2 className="team-title">
+                        {teamGroup.team}
+                    </h2>
+
+                    {teamGroup.members.map(member => (
+
+                        <div
+                            key={member.id}
+                            className="member-item"
+                        >
+                            <span className="member-name">
+                                {member.name}
+                            </span>
+                        </div>
+
+                    ))}
+
+                </section>
+
+            ))}
+
+            </div>
+          
         )}
       </div>
     </div>
