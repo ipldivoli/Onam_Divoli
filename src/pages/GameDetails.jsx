@@ -8,6 +8,7 @@ export default function GameDetails() {
   const [game, setGame] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [selectedMatch, setSelectedMatch] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -117,6 +118,107 @@ export default function GameDetails() {
     grid-template-columns:repeat(5, minmax(220px,1fr));
     gap:20px;
     margin-top:20px;
+}
+
+.matches-wrapper{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+}
+
+.category{
+    display:flex;
+    flex-direction:column;
+}
+
+.round-title{
+    margin:25px 0 15px;
+    font-size:22px;
+    color:var(--gold);
+    font-family:'Cormorant Garamond',serif;
+}
+
+.matches-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.match-card{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(201,162,39,.25);
+
+    border-radius:15px;
+
+    height:120px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.match-card:hover{
+
+    background:rgba(201,162,39,.12);
+
+    transform:translateY(-4px);
+
+}
+
+.popup-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.7);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+.popup{
+
+    width:420px;
+
+    background:#12251b;
+
+    border:2px solid var(--gold);
+
+    border-radius:20px;
+
+    padding:35px;
+
+    text-align:center;
+
+}
+
+.popup button{
+
+    margin-top:25px;
+
+    padding:10px 25px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
 }
 
 @media(max-width:1400px){
@@ -272,68 +374,85 @@ export default function GameDetails() {
           )}
 
           {matches.length > 0 && (
-            <div className="card">
-              <h2>⚔️ Matches</h2>
 
-              <div className="matches-grid">
+<div className="matches-wrapper">
 
-                {matches.map((m) => (
-                    <div key={m.id} className="match">
+    <div className="category">
 
-                        <strong>{m.round}</strong>
+        <h2> Men's Category</h2>
 
-                        <br /><br />
+        <div className="round-title">
+            First Round
+        </div>
 
-                        {game.event_type === "individual" ? (
-                            <>
-                                <strong>{m.player1}</strong>
+        <div className="matches-grid">
 
-                                {m.player1_team && (
-                                    <>
-                                        <br />
-                                        <small>{m.player1_team}</small>
-                                    </>
-                                )}
+            {menMatches.map((m,index)=>(
 
-                                <br /><br />
+                <div
+                    key={m.id}
+                    className="match-card"
+                    onClick={()=>setSelectedMatch(m)}
+                >
 
-                                <b>VS</b>
-
-                                <br /><br />
-
-                                <strong>{m.player2}</strong>
-
-                                {m.player2_team && (
-                                    <>
-                                        <br />
-                                        <small>{m.player2_team}</small>
-                                    </>
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                <strong>{m.team1}</strong>
-
-                                <br /><br />
-
-                                <b>VS</b>
-
-                                <br /><br />
-
-                                <strong>{m.team2}</strong>
-                            </>
-                        )}
-
-                        <br /><br />
-
-                        Winner : <b>{m.winner}</b>
-
-                    </div>
-                ))}
+                    Match {index+1}
 
                 </div>
-            </div>
-          )}
+
+            ))}
+
+        </div>
+
+        <div className="winner">
+
+            <h2>Champion</h2>
+
+            <h3>{game.men_winner}</h3>
+
+        </div>
+
+    </div>
+
+
+    <div className="category">
+
+        <h2> Women's Category</h2>
+
+        <div className="round-title">
+            First Round
+        </div>
+
+        <div className="matches-grid">
+
+            {womenMatches.map((m,index)=>(
+
+                <div
+                    key={m.id}
+                    className="match-card"
+                    onClick={()=>setSelectedMatch(m)}
+                >
+
+                    Match {index+1}
+
+                </div>
+
+            ))}
+
+        </div>
+
+        <div className="winner">
+
+            <h2>Champion</h2>
+
+            <h3>{game.women_winner}</h3>
+
+        </div>
+
+    </div>
+
+</div>
+
+)}
 
         </div>
         </div>
@@ -359,7 +478,51 @@ export default function GameDetails() {
         )}
 
       </div>
+        {selectedMatch && (
 
+<div
+    className="popup-overlay"
+    onClick={()=>setSelectedMatch(null)}
+>
+
+    <div
+        className="popup"
+        onClick={(e)=>e.stopPropagation()}
+    >
+
+        <h2>{selectedMatch.round}</h2>
+
+        <br/>
+
+        <strong>{selectedMatch.player1}</strong>
+
+        <br/><br/>
+
+        VS
+
+        <br/><br/>
+
+        <strong>{selectedMatch.player2}</strong>
+
+        <br/><br/>
+
+        Winner
+
+        <br/>
+
+        <h3>{selectedMatch.winner}</h3>
+
+        <button
+            onClick={()=>setSelectedMatch(null)}
+        >
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+)}
     </div>
   );
 }
