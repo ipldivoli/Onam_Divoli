@@ -4,6 +4,7 @@ import Gallery from "./components/Gallery";
 import History from "./components/History";
 import Venue from "./components/Venue";
 import TeamsPage from "./pages/Teams";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -175,7 +176,11 @@ section[id]:not(#home)::before{ content:""; display:block; height:92px; margin-t
             <ul id="navLinks" className={`nav-links${menuOpen ? " open" : ""}`}>
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href}>{item.label}</a>
+                  {item.href.startsWith("/") ? (
+                    <Link to={item.href}>{item.label}</Link>
+                  ) : (
+                    <a href={item.href}>{item.label}</a>
+                  )}
                 </li>
               ))}
             </ul>
