@@ -133,27 +133,30 @@ export default function Gallery() {
 
         .gallery-carousel{
     width:100%;
-    max-width:1400px;
+    max-width:1850px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    gap:24px;
+    gap:18px;
 }
 
 .gallery-grid{
     flex:1;
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:24px;
 
-    max-width:2000px;
+    gap:16px;
+
     width:100%;
+    max-width:1550px;
+
     overflow:hidden;
 }
 
 .gallery-arrow{
+ margin:0 12px;
     width:48px;
     height:48px;
 
@@ -182,12 +185,20 @@ export default function Gallery() {
 
 }
 
-        .gallery-tile{
-            width:100%;
-            aspect-ratio:1/1;
-            overflow:hidden;
-            border-radius:14px;
-        }
+       .gallery-tile{
+    position:relative;
+
+    width:100%;
+    height:460px;
+
+    overflow:hidden;
+    border:none;
+    border-radius:18px;
+
+    padding:0;
+    cursor:pointer;
+    background:#132a20;
+}
 
         .gallery-tile{
           position:relative;
