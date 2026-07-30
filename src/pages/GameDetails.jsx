@@ -9,6 +9,13 @@ export default function GameDetails() {
   const [participants, setParticipants] = useState([]);
   const [matches, setMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState(null);
+  const menMatches = matches.filter(
+  (m) => m.category === "Men"
+);
+
+const womenMatches = matches.filter(
+  (m) => m.category === "Women"
+);
 
   useEffect(() => {
     async function load() {
@@ -313,65 +320,9 @@ export default function GameDetails() {
 
         <h1>{game.name}</h1>
 
-        <div className="grid">
+        <div>
 
-          {participants.length > 0 && (
-            <div className="card">
-              <h2>👥 Participants</h2>
-
-              {game.event_type === "individual" ? (
-
-  participants.map((p) => (
-
-    <div key={p.id} className="participant">
-
-      <strong>{p.name}</strong>
-
-      <br />
-
-      <span>{p.team}</span>
-
-    </div>
-
-  ))
-
-) : (
-
-  Object.entries(
-    participants.reduce((acc, p) => {
-
-      if (!acc[p.team]) acc[p.team] = [];
-
-      acc[p.team].push(p);
-
-      return acc;
-
-    }, {})
-  ).map(([team, members]) => (
-
-    <div key={team} className="participant">
-
-      <h3>{team}</h3>
-
-      {members.map((m) => (
-
-        <div key={m.id}>
-
-          • {m.name}
-
-        </div>
-
-      ))}
-
-    </div>
-
-  ))
-
-)}
-                </div>
-              
-            
-          )}
+          
 
           {matches.length > 0 && (
 
@@ -379,76 +330,67 @@ export default function GameDetails() {
 
     <div className="category">
 
-        <h2> Men's Category</h2>
+    <h2>👨 Men's Category</h2>
 
-        <div className="round-title">
-            First Round
-        </div>
+    <div className="matches-grid">
 
-        <div className="matches-grid">
+        {menMatches.map((m,index)=>(
 
-            {menMatches.map((m,index)=>(
+            <div
+                key={m.id}
+                className="match-card"
+                onClick={()=>setSelectedMatch(m)}
+            >
 
-                <div
-                    key={m.id}
-                    className="match-card"
-                    onClick={()=>setSelectedMatch(m)}
-                >
+                {m.round}
 
-                    Match {index+1}
+            </div>
 
-                </div>
-
-            ))}
-
-        </div>
-
-        <div className="winner">
-
-            <h2>Champion</h2>
-
-            <h3>{game.men_winner}</h3>
-
-        </div>
+        ))}
 
     </div>
 
+    <div className="winner">
 
-    <div className="category">
+        <h2>Champion</h2>
 
-        <h2> Women's Category</h2>
-
-        <div className="round-title">
-            First Round
-        </div>
-
-        <div className="matches-grid">
-
-            {womenMatches.map((m,index)=>(
-
-                <div
-                    key={m.id}
-                    className="match-card"
-                    onClick={()=>setSelectedMatch(m)}
-                >
-
-                    Match {index+1}
-
-                </div>
-
-            ))}
-
-        </div>
-
-        <div className="winner">
-
-            <h2>Champion</h2>
-
-            <h3>{game.women_winner}</h3>
-
-        </div>
+        <h3>{game.men_winner}</h3>
 
     </div>
+
+</div>
+
+<div className="category">
+
+    <h2>👩 Women's Category</h2>
+
+    <div className="matches-grid">
+
+        {womenMatches.map((m,index)=>(
+
+            <div
+                key={m.id}
+                className="match-card"
+                onClick={()=>setSelectedMatch(m)}
+            >
+
+                {m.round}
+
+            </div>
+
+        ))}
+
+    </div>
+
+    <div className="winner">
+
+        <h2>Champion</h2>
+
+        <h3>{game.women_winner}</h3>
+
+    </div>
+
+</div>
 
 </div>
 
@@ -456,26 +398,7 @@ export default function GameDetails() {
 
         </div>
         </div>
-        {game.winner && (
-          <div className="winner">
-            <h2> Champion</h2>
-
-            <h3>{game.winner}</h3>
-
-{game.event_type === "individual" && (
-
-  <p
-    style={{
-      marginTop:10,
-      color:"#d7c8a1"
-    }}
-  >
-    Team : {participants.find(p => p.name === game.winner)?.team}
-  </p>
-
-)}
-          </div>
-        )}
+        
 
       </div>
         {selectedMatch && (
@@ -490,7 +413,9 @@ export default function GameDetails() {
         onClick={(e)=>e.stopPropagation()}
     >
 
-        <h2>{selectedMatch.round}</h2>
+        <h2>
+    {selectedMatch.category} - {selectedMatch.round}
+</h2>
 
         <br/>
 
