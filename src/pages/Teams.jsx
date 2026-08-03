@@ -177,15 +177,14 @@ export default function Teams() {
 
         <h1 className="page-title">Teams</h1>
         <p className="page-subtitle">
-          The participating teams and their members are listed here.
         </p>
 
         {loading ? (
-          <p>Loading teams from database...</p>
+          <p>Loading teams...</p>
         ) : error ? (
           <p style={{ color: "#ff6b6b" }}>Error loading teams: {error}</p>
         ) : teams.length === 0 ? (
-          <p>No team data available in the database yet.</p>
+          <p>No team data available.</p>
         ) : (
           <div className="teams-grid">
 
