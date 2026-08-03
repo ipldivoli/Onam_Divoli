@@ -1,34 +1,40 @@
 export default function History() {
   const milestones = [
     {
-      year: "2018",
-      title: "The first celebration",
+      year: "2011",
+      title: "A Humble Beginning",
       description:
-        "Divoli began its Onam journey with a small gathering of colleagues, a hand-made pookalam, and the warmth of shared tradition.",
+        "Our first Onam celebration was a simple gathering with fewer than ten team members. The celebration took place inside the office, where we created a small Pookkalam and enjoyed a traditional Onam Sadhya together. Though modest in scale, it marked the beginning of a tradition that continues to bring our team together every year.",
     },
     {
-      year: "2020",
-      title: "A bigger spirit",
+      year: "2016",
+      title: "Growing Together",
       description:
-        "The celebration grew into a joyful company tradition with festive decorations, cultural performances, and a deeper sense of community.",
+        "As our team grew, so did our celebrations. Onam became a more vibrant event with the introduction of Maveli, along with fun games and activities that brought everyone together. While the celebration was still held within the office, it reflected the growing spirit and enthusiasm of our expanding team.",
     },
     {
       year: "2022",
-      title: "Tradition meets togetherness",
+      title: "A New Milestone",
       description:
-        "Employees came together to celebrate with music, games, and a vibrant display of Kerala heritage that became a yearly highlight.",
+        "For the first time, our Onam celebration (onapoovili) moved beyond the office to a dedicated event hall. The larger venue allowed us to organize a more memorable celebration featuring Maveli, traditional games such as Vadam Vali (Tug of War), and a grand festive atmosphere. This year was especially memorable as we were joined by colleagues from our parent company in Belgium, making the occasion even more special.",
+    },
+    {
+      year: "2023",
+      title: "Building on the Tradition",
+      description:
+        "Following the success of the previous year, we once again celebrated Onam (Maveli ka Hukkum) at an external venue. The event featured Maveli, Vadam Vali, and a variety of activities that encouraged teamwork and strengthened the bonds among colleagues. It was another memorable celebration filled with festive spirit.",
     },
     {
       year: "2024",
-      title: "A memorable milestone",
+      title: "Celebrating as One Team",
       description:
-        "Our Onam celebrations became a signature event, reflecting the values of unity, gratitude, and celebration that define Divoli.",
+        "Our Onam celebrations (Avesham) continued to grow, bringing together employees and their families for another enjoyable gathering outside the office. Traditional elements such as Maveli, Vadam Vali, cultural activities, and a delicious Onam Sadhya made the day a wonderful celebration of Kerala's rich heritage and our shared team spirit.",
     },
     {
       year: "2025",
-      title: "Continuing the legacy",
+      title: "Keeping the Tradition Alive",
       description:
-        "Each year, the celebration grows richer in meaning, bringing together tradition, creativity, and the spirit of belonging.",
+        "By 2025, our Onam celebration (Ethu Mood Onam Mood) had become one of the most anticipated events of the year. Hosted once again at an external venue, the event featured Maveli, exciting games including Vadam Vali, cultural performances, and the traditional Onam Sadhya. It was a celebration of togetherness, reflecting how our organization has grown while continuing to cherish the traditions that unite us.",
     },
   ];
 
