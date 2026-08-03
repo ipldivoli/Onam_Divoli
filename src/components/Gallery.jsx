@@ -22,10 +22,8 @@ function GalleryTile({ image, index, onOpen }) {
             <circle cx="15" cy="15" r="13" stroke="#C9A227" strokeWidth="1" />
             <circle cx="15" cy="15" r="3" fill="#C9A227" />
           </svg>
-          <span>{image.alt}</span>
         </div>
       )}
-      <div className="gallery-tile-caption">{image.alt}</div>
     </button>
   );
 }
@@ -240,23 +238,6 @@ export default function Gallery() {
           opacity:0.75;
           text-align:center;
           padding:0 18px;
-        }
-
-        .gallery-tile-caption{
-          position:absolute;
-          left:0; right:0; bottom:0;
-          padding:14px 16px 12px;
-          font-size:0.7rem;
-          letter-spacing:0.08em;
-          color:var(--cream);
-          background:linear-gradient(to top, rgba(14,26,20,0.88), transparent);
-          transform:translateY(100%);
-          transition:transform 0.35s ease;
-          text-align:left;
-        }
-        .gallery-tile:hover .gallery-tile-caption,
-        .gallery-tile:focus-visible .gallery-tile-caption{
-          transform:translateY(0);
         }
 
         /* ---------- Lightbox ---------- */
@@ -477,7 +458,6 @@ grid-template-columns:1fr;
             >
               ›
             </button>
-            <div className="lightbox-caption">{images[openIndex].alt}</div>
           </div>
         </div>
       )}
